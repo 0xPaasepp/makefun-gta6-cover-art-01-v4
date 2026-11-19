@@ -1,0 +1,158 @@
+/* Velvet Heat — studio UI. Anton for display, Pacifico for script. */
+@font-face {
+  font-family: 'Anton';
+  src: url('fonts/Anton-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pacifico';
+  src: url('fonts/Pacifico-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #12081f;
+  --bg2: #1d0b33;
+  --panel: #241238;
+  --panel2: #2e1846;
+  --ink: #f7ecff;
+  --muted: #c9aee0;
+  --line: #4a2a68;
+  --pink: #ff2e96;
+  --orange: #ff9a3d;
+  --gold: #ffd76a;
+  --cyan: #7df9ff;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: radial-gradient(1200px 600px at 80% -10%, #4b1160 0%, transparent 60%),
+    radial-gradient(900px 500px at 0% 0%, #7a1e52 0%, transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(18, 8, 31, 0.85);
+  position: sticky; top: 0; z-index: 5;
+  backdrop-filter: blur(8px);
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: grid; place-items: center;
+  font-family: 'Anton', sans-serif; font-size: 20px; letter-spacing: 1px;
+  color: #1a0533;
+  background: linear-gradient(135deg, var(--gold), var(--pink) 55%, var(--orange));
+}
+.brand h1 {
+  font-family: 'Anton', sans-serif; font-weight: 400;
+  font-size: 24px; letter-spacing: 2px; margin: 0; line-height: 1;
+  text-transform: uppercase;
+}
+.brand p { margin: 2px 0 0; color: var(--muted); font-size: 12.5px; }
+.top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+button {
+  font: inherit; color: var(--ink);
+  background: var(--panel2); border: 1px solid var(--line);
+  border-radius: 9px; padding: 8px 13px; cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: var(--pink); }
+button:disabled { opacity: 0.45; cursor: default; }
+button.primary {
+  background: linear-gradient(135deg, var(--pink), var(--orange));
+  border: none; color: #fff; font-weight: 700;
+}
+button.active { border-color: var(--gold); background: #3d2060; box-shadow: 0 0 0 1px var(--gold); }
+
+.studio {
+  display: grid; grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 20px; padding: 20px 22px; max-width: 1280px; margin: 0 auto;
+  align-items: start;
+}
+.stage-col { min-width: 0; }
+.stage {
+  background: #000; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 12px; display: grid; place-items: center;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+#coverCanvas { width: 100%; max-width: 560px; height: auto; display: block; border-radius: 8px; cursor: grab; touch-action: none; }
+#coverCanvas:active { cursor: grabbing; }
+.dual { display: flex; gap: 12px; margin-top: 12px; width: 100%; justify-content: center; }
+.dual figure { margin: 0; text-align: center; }
+.dual canvas { width: 100%; max-width: 340px; height: auto; border-radius: 8px; display: block; }
+.dual figcaption { color: var(--muted); font-size: 12.5px; margin-top: 6px; }
+body.shot-dual #coverCanvas { display: none; }
+body.shot-dual .stage { background: var(--panel); }
+/* Cover shot: hide the sidebar so the whole poster fits a 1280x720 frame. */
+body.shot-cover .studio { grid-template-columns: minmax(0, 1fr); max-width: 760px; }
+body.shot-cover .controls, body.shot-cover .foot { display: none; }
+body.shot-cover #coverCanvas { max-width: 600px; }
+body.shot-cover .hint, body.shot-cover .panel-strip { display: none; }
+/* Export shot: spotlight the export card. */
+body.shot-export .export-card { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+.hint { color: var(--muted); font-size: 13px; margin: 10px 2px; }
+.panel-strip { display: flex; gap: 8px; flex-wrap: wrap; }
+.panel-chip { font-size: 13px; }
+
+.controls { display: grid; gap: 14px; }
+.card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 14px 16px;
+}
+.card h2 {
+  font-family: 'Anton', sans-serif; font-weight: 400; letter-spacing: 1.5px;
+  font-size: 16px; text-transform: uppercase; margin: 0 0 10px;
+}
+.card h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 14px 0 8px; }
+.card label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.card input[type="text"], .card select {
+  width: 100%; margin-top: 4px; padding: 9px 10px;
+  background: #160a28; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 8px; font: inherit;
+}
+.card input[type="range"] { width: 100%; accent-color: var(--pink); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.picker { display: flex; flex-wrap: wrap; gap: 8px; }
+.picker button { font-size: 13px; padding: 7px 11px; }
+.engine-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.engine-toggle button { font-size: 13px; }
+
+.tray {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.thumb {
+  margin: 0; cursor: pointer; border: 2px solid transparent;
+  border-radius: 10px; overflow: hidden; background: #160a28;
+}
+.thumb:hover { border-color: var(--pink); }
+.thumb img { width: 100%; height: 74px; object-fit: cover; display: block; }
+.thumb figcaption { font-size: 11.5px; text-align: center; padding: 4px 2px; color: var(--muted); }
+.thumb.upload { display: grid; place-items: center; min-height: 100px; border-style: dashed; border-color: var(--line); }
+.thumb.upload .plus { font-size: 28px; color: var(--gold); }
+.fine { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+.export-card ul { margin: 6px 0; padding-left: 18px; }
+.export-card li { font-size: 14px; }
+.status { color: var(--gold); font-size: 13px; min-height: 1.2em; }
+
+.foot {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 14px 22px; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 12.5px; max-width: 1280px; margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .studio { grid-template-columns: 1fr; }
+  .topbar { flex-wrap: wrap; }
+  .dual { flex-direction: column; align-items: center; }
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Velvet Heat — GTA 6 Cover Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<noscript><p style="padding:16px">Velvet Heat needs JavaScript — the whole cover studio runs in your browser.</p></noscript>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">VH</span>
+    <div>
+      <h1>Velvet Heat</h1>
+      <p>Cover Studio · GTA 6-style poster maker</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button id="undoBtn" type="button" disabled>↩ Undo</button>
+    <button id="redoBtn" type="button" disabled>↪ Redo</button>
+    <button id="exportAllBtn" type="button" class="primary">⬇ Export all · 3 sizes</button>
+  </div>
+</header>
+
+<main class="studio">
+  <section class="stage-col">
+    <div class="stage">
+      <canvas id="coverCanvas" width="720" height="720" aria-label="Cover preview — drag a panel to move it, scroll to zoom"></canvas>
+      <div id="dualCanvas" class="dual" hidden>
+        <figure><canvas id="dualInk" width="560" height="560"></canvas><figcaption>Ink engine</figcaption></figure>
+        <figure><canvas id="dualPhoto" width="560" height="560"></canvas><figcaption>Photo engine</figcaption></figure>
+      </div>
+    </div>
+    <p class="hint">Drag a panel to reposition · scroll over a panel to zoom · pick a panel below to edit it.</p>
+    <div id="panelStrip" class="panel-strip" aria-label="Panels"></div>
+  </section>
+
+  <aside class="controls">
+    <section class="card">
+      <h2>Caption</h2>
+      <label>Title
+        <input id="titleInput" type="text" value="VELVET HEAT" maxlength="60">
+      </label>
+      <label>Tagline
+        <input id="taglineInput" type="text" value="Vice City nights, your story in neon." maxlength="100">
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Template</h2>
+      <div id="templatePicker" class="picker"></div>
+    </section>
+
+    <section class="card">
+      <h2>Engine</h2>
+      <div class="engine-toggle" id="engineToggle" data-engine="ink">
+        <button type="button" data-engine-btn="ink" class="active">Ink · posterize + halftone</button>
+        <button type="button" data-engine-btn="photo">Photo · 5 grades</button>
+      </div>
+      <h3>Grade</h3>
+      <div id="gradePicker" class="picker"></div>
+    </section>
+
+    <section class="card">
+      <h2>Selected panel</h2>
+      <div class="row">
+        <label>Panel grade
+          <select id="panelGrade">
+            <option value="">Use cover grade</option>
+            <option value="golden-hour">Golden Hour</option>
+            <option value="vice-neon">Vice Neon</option>
+            <option value="sunset">Sunset</option>
+            <option value="noir">Noir</option>
+            <option value="palm-fade">Palm Fade</option>
+          </select>
+        </label>
+        <label>Panel engine
+          <select id="panelEngine">
+            <option value="">Use cover engine</option>
+            <option value="ink">Ink</option>
+            <option value="photo">Photo</option>
+          </select>
+        </label>
+      </div>
+      <label>Zoom <span id="zoomVal">100%</span>
+        <input id="zoomRange" type="range" min="0.5" max="3" step="0.05" value="1">
+      </label>
+      <label>Rotate <span id="rotVal">0°</span>
+        <input id="rotRange" type="range" min="-45" max="45" step="1" value="0">
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Photos</h2>
+      <div id="photoTray" class="tray"></div>
+      <p class="fine">Photos never leave your machine. Everything runs offline.</p>
+    </section>
+
+    <section class="card export-card">
+      <h2>Export</h2>
+      <p>One click exports all three post sizes as PNG:</p>
+      <ul>
+        <li>1080 × 1080 — square post</li>
+        <li>1080 × 1350 — portrait post</li>
+        <li>1920 × 1080 — wide / story</li>
+      </ul>
+      <p id="exportStatus" class="status" role="status"></p>
+    </section>
+  </aside>
+</main>
+
+<footer class="foot">
+  <span>Velvet Heat · offline cover studio · Anton + Pacifico (SIL OFL)</span>
+  <span>SUMMER 2026</span>
+</footer>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
